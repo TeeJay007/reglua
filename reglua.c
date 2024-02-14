@@ -42,6 +42,10 @@ static int rmatch(lua_State *L) {
 
 int luaopen_reglua(lua_State *L) {
     static const struct luaL_Reg lib[] = {{"rmatch", rmatch}, {NULL, NULL}};
+#if LUA_VERSION_NUM >= 502
+	luaL_newlib(L, lib);
+#else
     luaL_register(L, "reglua", lib);
+#endif
     return 1;
 }
